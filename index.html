@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Graph-Based Note-Taking</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/cytoscape/3.23.0/cytoscape.min.js"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+    }
+    #form-container {
+      padding: 10px;
+      background-color: #f4f4f4;
+      border-bottom: 1px solid #ddd;
+    }
+    #graph-container {
+      flex: 1;
+      height: 100%;
+      background-color: #fafafa;
+    }
+    input, button {
+      margin: 5px;
+      padding: 8px;
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+  <div id="form-container">
+    <input id="node-title" type="text" placeholder="Node Title" />
+    <input id="node-content" type="text" placeholder="Node Content" />
+    <input id="target-node" type="text" placeholder="Link to Node ID (optional)" />
+    <button onclick="addNode()">Add Node</button>
+  </div>
+  <div id="graph-container"></div>
+
+  <script src="script.js"></script>
+</body>
+</html>
