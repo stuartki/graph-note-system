@@ -1,81 +1,57 @@
-// Initialize Cytoscape graph
-const cy = cytoscape({
-  container: document.getElementById('graph-container'),
-  style: [
-    {
-      selector: 'node',
-      style: {
-        'background-color': '#0074D9',
-        'label': 'data(label)',
-        'color': '#fff',
-        'text-valign': 'center',
-        'text-outline-width': 2,
-        'text-outline-color': '#0074D9'
-      }
-    },
-    {
-      selector: 'edge',
-      style: {
-        'width': 2,
-        'line-color': '#ccc',
-        'target-arrow-color': '#ccc',
-        'target-arrow-shape': 'triangle',
-        'curve-style': 'bezier'
-      }
+// script.js
+import Graph from './graph.js';
+
+// Initialize graph instance
+const containerId = 'graph-container';
+const graph = new Graph(containerId);
+
+// Add event listeners for controls
+const addNodeButton = document.getElementById('addNodeButton');
+const addEdgeButton = document.getElementById('addEdgeButton');
+const searchNodeButton = document.getElementById('searchNodeButton');
+const editNodeButton = document.getElementById('editNodeButton');
+const visualizeButton = document.getElementById('visualizeButton');
+
+addNodeButton.addEventListener('click', () => {
+    const id = document.getElementById('nodeId').value;
+    const label = document.getElementById('nodeLabel').value;
+    if (id && label) {
+        graph.addNode(id, label);
+    } else {
+        alert('Please provide both Node ID and Label.');
     }
-  ],
-  layout: {
-    name: 'grid', // Initial layout
-    fit: true
-  }
 });
 
-// Counter for node IDs
-let nodeIdCounter = 1;
-
-// Add a node to the graph
-function addNode() {
-  const nodeTitle = document.getElementById('node-title').value.trim();
-  const nodeContent = document.getElementById('node-content').value.trim();
-  const targetNodeId = document.getElementById('target-node').value.trim();
-
-  if (!nodeTitle) {
-    alert('Node Title is required!');
-    return;
-  }
-
-  // Create a new node
-  const newNodeId = `node-${nodeIdCounter++}`;
-  cy.add({
-    group: 'nodes',
-    data: { id: newNodeId, label: nodeTitle, content: nodeContent },
-    position: { x: Math.random() * 500, y: Math.random() * 500 }
-  });
-
-  // Add an edge if a target node is specified
-  if (targetNodeId) {
-    const targetNode = cy.getElementById(targetNodeId);
-    if (targetNode.length === 0) {
-      alert(`Node with ID ${targetNodeId} does not exist!`);
+addEdgeButton.addEventListener('click', () => {
+    const source = document.getElementById('sourceNodeId').value;
+    const target = document.getElementById('targetNodeId').value;
+    if (source && target) {
+        graph.addEdge(source, target);
     } else {
-      cy.add({
-        group: 'edges',
-        data: { source: newNodeId, target: targetNodeId }
-      });
+        alert('Please provide both Source and Target Node IDs.');
     }
-  }
+});
 
-  // Reset inputs
-  document.getElementById('node-title').value = '';
-  document.getElementById('node-content').value = '';
-  document.getElementById('target-node').value = '';
+searchNodeButton.addEventListener('click', () => {
+    const query = document.getElementById('searchQuery').value;
+    const results = graph.searchNode(query);
+    if (results.length > 0) {
+        alert(`Found nodes: ${results.map(node => node.label).join(', ')}`);
+    } else {
+        alert('No nodes found matching your query.');
+    }
+});
 
-  // Run layout
-  cy.layout({ name: 'cose', animate: true }).run();
-}
+editNodeButton.addEventListener('click', () => {
+    const id = document.getElementById('editNodeId').value;
+    const newLabel = document.getElementById('editNodeLabel').value;
+    if (id && newLabel) {
+        graph.editNode(id, newLabel);
+    } else {
+        alert('Please provide both Node ID and New Label.');
+    }
+});
 
-// Display node content on click
-cy.on('tap', 'node', function (evt) {
-  const node = evt.target;
-  alert(`Node Title: ${node.data('label')}\nContent: ${node.data('content')}`);
+visualizeButton.addEventListener('click', () => {
+    graph.visualize();
 });
