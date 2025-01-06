@@ -1,45 +1,46 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Graph-Based Note-Taking</title>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/cytoscape/3.23.0/cytoscape.min.js"></script>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 0;
-      padding: 0;
-      display: flex;
-      flex-direction: column;
-      height: 100vh;
-    }
-    #form-container {
-      padding: 10px;
-      background-color: #f4f4f4;
-      border-bottom: 1px solid #ddd;
-    }
-    #graph-container {
-      flex: 1;
-      height: 100%;
-      background-color: #fafafa;
-    }
-    input, button {
-      margin: 5px;
-      padding: 8px;
-      font-size: 14px;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Graph-Based Note System</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/cytoscape/3.23.0/cytoscape.min.js"></script>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <div id="form-container">
-    <input id="node-title" type="text" placeholder="Node Title" />
-    <input id="node-content" type="text" placeholder="Node Content" />
-    <input id="target-node" type="text" placeholder="Link to Node ID (optional)" />
-    <button onclick="addNode()">Add Node</button>
-  </div>
-  <div id="graph-container"></div>
+    <div id="control-panel">
+        <h2>Graph Controls</h2>
+        <div>
+            <label for="nodeId">Node ID:</label>
+            <input type="text" id="nodeId" placeholder="Enter Node ID">
+            <label for="nodeLabel">Node Label:</label>
+            <input type="text" id="nodeLabel" placeholder="Enter Node Label">
+            <button id="addNodeButton">Add Node</button>
+        </div>
+        <div>
+            <label for="sourceNodeId">Source Node ID:</label>
+            <input type="text" id="sourceNodeId" placeholder="Source Node">
+            <label for="targetNodeId">Target Node ID:</label>
+            <input type="text" id="targetNodeId" placeholder="Target Node">
+            <button id="addEdgeButton">Add Edge</button>
+        </div>
+        <div>
+            <label for="searchQuery">Search Query:</label>
+            <input type="text" id="searchQuery" placeholder="Search Nodes">
+            <button id="searchNodeButton">Search</button>
+        </div>
+        <div>
+            <label for="editNodeId">Node ID to Edit:</label>
+            <input type="text" id="editNodeId" placeholder="Node ID">
+            <label for="editNodeLabel">New Label:</label>
+            <input type="text" id="editNodeLabel" placeholder="New Label">
+            <button id="editNodeButton">Edit Node</button>
+        </div>
+        <button id="visualizeButton">Visualize Graph</button>
+    </div>
 
-  <script src="script.js"></script>
+    <div id="graph-container"></div>
+
+    <script src="script.js" type="module"></script>
 </body>
 </html>
