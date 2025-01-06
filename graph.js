@@ -54,7 +54,6 @@ class Graph {
         // Clear input fields
         document.getElementById('nodeId').value = '';
         document.getElementById('nodeLabel').value = '';
-}
     }
 
     addEdge(sourceId, targetId) {
