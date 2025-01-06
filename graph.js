@@ -50,6 +50,11 @@ class Graph {
             group: 'nodes',
             data: { id, label }
         });
+
+        // Clear input fields
+        document.getElementById('nodeId').value = '';
+        document.getElementById('nodeLabel').value = '';
+}
     }
 
     addEdge(sourceId, targetId) {
